@@ -3,9 +3,10 @@ const Schema = moongose.Schema
 
 const campgroundSchema = new Schema({
     title: String,
-    price: String,
+    price: Number,
     description: String,
-    location: String
+    location: String,
+    image: String
 })
 
 module.exports = moongose.model('Campground', campgroundSchema);

@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<% layout('layouts/boilerplate.ejs') %>
     <title>New Campground</title>
-</head>
-<body>
     <form action="/campgrounds" method="post">
         <div>
             <label for="title">Title</label>
@@ -19,5 +12,3 @@
         <button>Add Campground</button>
     </form>
     <a href="/campgrounds">All Campgrouds</a>
-</body>
-</html>

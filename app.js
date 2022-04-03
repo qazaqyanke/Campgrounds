@@ -1,39 +1,41 @@
-const express = require('express')
-const moongose = require('mongoose')
-const app = express()
+const express = require('express');
+const moongose = require('mongoose');
+const app = express();
 const override = require('method-override');
 const port = 3000;
+const ejsMate = require('ejs-mate');
 const path = require('path')
-const Campground = require('./models/campground')
+const Campground = require('./models/campground');
 
 moongose.connect('mongodb://localhost:27017/yelp-camp');
 
 const db = moongose.connection;
-db.on("error", console.log.bind(console, "connection error"))
+db.on("error", console.log.bind(console, "connection error"));
 db.once('open', () => {
     console.log("DataBase connected");
 })
 
+app.engine('ejs', ejsMate)
 app.set('view engine', 'ejs')
-app.set('views', path.join(__dirname, 'views'))
+app.set('views', path.join(__dirname, 'views'));
 
-app.use(express.urlencoded({extended: true}))
-app.use(override('_method'))
+app.use(express.urlencoded({extended: true}));
+app.use(override('_method'));
 
  
 app.post('/campgrounds', async(req, res) => {
     const campground = new Campground(req.body.campground);
-    await campground.save()
-    res.redirect(`campgrounds/${campground._id}`)
+    await campground.save();
+    res.redirect(`campgrounds/${campground._id}`);
 })
 
 app.get('/', (req, res) => {
-    res.render('home')
+    res.render('home');
 })
 
 app.get('/campgrounds', async(req, res) => {
-    const campgrounds = await Campground.find({})
-    res.render('campgrounds/index', { campgrounds })
+    const campgrounds = await Campground.find({});
+    res.render('campgrounds/index', { campgrounds });
 })
 
 app.get('/campgrounds/new', async(req, res) => {
