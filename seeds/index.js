@@ -1,11 +1,11 @@
-const moongose = require('mongoose')
+const mongoose = require('mongoose')
 const cities = require('./cities')
 const Campground = require('../models/campground')
 const {places, descriptors} = require('./seedHelpers')
 
-moongose.connect('mongodb://localhost:27017/yelp-camp');
+mongoose.connect('mongodb://localhost:27017/yelp-camp');
 
-const db = moongose.connection;
+const db = mongoose.connection;
 db.on("error", console.log.bind(console, "connection error"))
 db.once('open', () => {
     console.log("DataBase connected");
@@ -30,5 +30,5 @@ const seedDb = async() => {
 }
 
 seedDb().then(() => {
-    moongose.connection.close();
+    mongoose.connection.close();
 })
